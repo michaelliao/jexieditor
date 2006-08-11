@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ====================================================================== 
+     2004-8-6
+
+     jexi project
+
+     by Xuefeng (asklxf@163.com)
+====================================================================== -->
+
+<project name="jexi" default="dist" basedir=".">
+	<description>jexi 1.0 beta</description>
+
+	<property name="src.dir" value="src" />
+	<property name="lib.dir" value="lib" />
+	<property name="build.dir" value="classes" />
+	<property name="dist.dir" value="dist" />
+	<property name="doc.dir" value="doc" />
+
+	<target name="init" description="init dir">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${doc.dir}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile project">
+		<javac srcdir="${src.dir}" destdir="${build.dir}" source="1.4">
+			<classpath>
+				<fileset file="${lib.dir}/*.jar" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="dist" depends="compile" description="make jar file">
+		<copy todir="${dist.dir}">
+			<fileset dir="${lib.dir}" />
+		</copy>
+		<jar basedir="${build.dir}" jarfile="${dist.dir}/jexi.jar" />
+		<copy todir="${dist.dir}">
+			<fileset dir="${lib.dir}" />
+		</copy>
+	</target>
+
+	<target name="cleanup" description="clean up">
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+		<delete dir="${doc.dir}" />
+	</target>
+</project>
